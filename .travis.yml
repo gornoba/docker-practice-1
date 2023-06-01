@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -t gornoba/docker-vue-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true gornoba/docker-vue-app npm run preview
+
+after_success:
+  - echo "Test success"
